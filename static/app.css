@@ -1,0 +1,85 @@
+@import 'variables.css';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--color-text-light);
+
+    nav {
+        padding: 0 var(--spacing-medium);
+        background-color: var(--color-header-footer);
+        line-height: var(--spacing-large);
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        font-family: var(--font-secondary);
+        height: 4rem;
+    
+        ul {
+            padding: var(--spacing-small);
+            display: flex;
+            align-items: center;
+            width: 100%;
+    
+            li {
+                display: inline;
+                padding-right: var(--spacing-medium);
+                a {
+                    text-decoration: none;
+                    font-weight: bold;
+                    color: var(--color-background);
+                    font-size: var(--font-size-medium);
+                    font-family: var(--font-secondary);
+                    &hover {
+                    font-size: var(--font-size-large);
+                    }
+                    &.selected {
+                    color: var(--color-accent);
+                    font-size: var(--font-size-medium);
+                    }
+                }
+            }
+            li:last-child {
+                margin-left: auto;
+            }
+        }
+    
+    }
+
+    main{
+        /* margin-top: 4rem; */
+        padding: 0.5rem 1rem 1rem;
+        position: relative;
+        top: 0;
+        font-family: var(--font-primary);
+    }
+
+    > footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 0;
+    z-index: 2000;
+    color: var(--color-background);
+    background-color: var(--color-header-footer);
+    font-family: var(--font-primary);
+    text-align: center;
+    font-size: var(--font-size-small);
+    padding: 1rem;    
+    /* @media (min-width: 480px) {
+        position: fixed;
+    } */
+    }
+}
+
+

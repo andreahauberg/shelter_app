@@ -1,0 +1,40 @@
+:root {
+    /* 🌈 Color Palette */
+    --color-primary: #2981CA; /* Blå - Primær farve */
+    --color-primary-hover: #286E9F; /* Mørkere blå ved hover */
+    --color-secondary: #91bc8f; /* Grønlig farve til baggrunde */
+    --color-accent: #ffcc00; /* Gul accentfarve */
+    --color-background: #f7f7f7; /* Baggrundsfarve */
+    --color-header-footer: #2F4F2F; /* Header og Footer */
+    --color-text: #0f0e0e; /* Primær tekstfarve */
+    --color-text-light: #f1f1f1; /* Lysere tekstfarve */
+    --color-border: rgba(0, 0, 0, 0.2); /* Kantfarve */
+    --color-error: #dc3545; /* Rød - Fejlbeskeder */
+    --color-success: #28a745; /* Grøn - Success */
+
+    /* ✏️ Font Families */
+    --font-primary: "Roboto", sans-serif;
+    --font-secondary: "Lora", serif;
+
+    /* 🔠 Font Sizes */
+    --font-size-small: 0.875rem; /* 14px */
+    --font-size-base: 1rem; /* 16px */
+    --font-size-medium: 1.25rem; /* 20px */
+    --font-size-large: 1.5rem; /* 24px */
+    --font-size-title: 2rem; /* 32px */
+
+    /* 🔳 Border Radius */
+    --border-radius-small: 0.25rem; /* 4px */
+    --border-radius-medium: 0.5rem; /* 8px */
+    --border-radius-large: 1rem; /* 16px */
+
+    /* 📏 Spacing */
+    --spacing-small: 0.5rem; /* 8px */
+    --spacing-medium: 1rem; /* 16px */
+    --spacing-large: 2rem; /* 32px */
+
+    /* 🌑 Box Shadow */
+    --shadow-small: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
