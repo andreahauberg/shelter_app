@@ -49,7 +49,7 @@ document.getElementById("show-more-btn").addEventListener("click", async functio
       data.items.forEach((item) => {
         const itemElement = document.createElement("article");
         itemElement.classList.add("item");
-        const imageUrl = `/static/${item.item_image}`;
+        const imageUrl = `static/images/${item.item_image}`;
 
         itemElement.innerHTML = `
                 <img src="${imageUrl}" alt="tornskade">
