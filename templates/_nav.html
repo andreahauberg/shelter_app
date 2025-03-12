@@ -1,7 +1,11 @@
 <nav>
     <ul>
-            <li><a href="/" mix-get="/" mix-page>Home</a></li>
-            <li><a href="/signup" mix-get="signup" mix-page>Signup</a></li>
-            <li><a href="/login" mix-get="login" mix-page>Login</a></li>
+            <li><a class="{{ active_index }}" href="/" mix-get="/" mix-page>Home</a></li>
+            <li><a class="{{ active_signup }}" href="/signup" mix-get="signup" mix-page>Signup</a></li>
+            {% if is_session: %}
+            <li><a href="/logout">Logout</a></li>
+            {% else: %} 
+            <li><a class="{{ active_login }}" href="/login" mix-get="login" mix-page>Login</a></li>
+            {% endif %}
     </ul>
 </nav>

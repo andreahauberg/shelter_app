@@ -1,38 +1,49 @@
 {% include "_header.html" %}
 
-<main id="login" class="page"
-    mix-url="/login"
-    mix-top="body"
-    mix-title="{{ title | default('Company') }}"
-    mix-hide=".page"
-    mix-show="#login"
->
-    {% include "_nav.html" %}
+<main
+  id="login"
+  class="page"
+  mix-url="/login"
+  mix-top="body"
+  mix-title="{{ title | default('Login') }}"
+  mix-hide=".page"
+  mix-show="#login">
+  {% include "_nav.html" %}
 
-    <h1>Login</h1>
+  <h1>Login</h1>
+  <h2>{{ message }}</h2>
 
-    <form mix-post="/login">             
-        <div class="form-group">
-            <label for="user_email">
-                <span class="label">Email</span>
-                <span class="hint">Must include @ .</span>
-            </label>
-            <input id="user_email" name="user_email" type="email" mix-check="{{ x.USER_EMAIL_REGEX }}" >
-        </div>
+  <form mix-post="/login">
+    <div class="form-group">
+      <label for="user_email">
+        <span class="label">Email</span>
+        <span class="hint">Must include @ .</span>
+      </label>
+      <input
+        id="user_email"
+        name="user_email"
+        type="email"
+        mix-check="{{ x.USER_EMAIL_REGEX }}"
+        value="{{ old_values.get('user_email', '') }}" />
+    </div>
 
-        <div class="form-group">
-            <label for="user_password">
-                <span class="label">Password</span>
-                <span class="hint">{{ x.USER_PASSWORD_MIN }} to {{ x.USER_PASSWORD_MAX }} characters</span>
-            </label>
-            <input id="user_password" name="user_password" type="password" mix-check="{{ x.USER_PASSWORD_REGEX }}" >
-        </div>        
+    <div class="form-group">
+      <label for="user_password">
+        <span class="label">Password</span>
+        <span class="hint">
+          {{ x.USER_PASSWORD_MIN }} to {{ x.USER_PASSWORD_MAX }} characters
+        </span>
+      </label>
+      <input
+        id="user_password"
+        name="user_password"
+        type="password"
+        mix-check="{{ x.USER_PASSWORD_REGEX }}"
+        value="{{ old_values.get('user_password', '') }}" />
+    </div>
 
-        <button mix-await="Please wait..." mix-default="Login">
-            Login
-        </button>
-    </form>
-
+    <button mix-await="Please wait..." mix-default="Login">Login</button>
+  </form>
 </main>
 
 {% include "_footer.html" %}

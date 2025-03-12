@@ -1,0 +1,14 @@
+{% include "_header.html" %}
+<main
+  id="profile"
+  class="page"
+  mix-url="/profile"
+  mix-top="body"
+  mix-title="{{ title | default('Profile') }}"
+  mix-hide=".page"
+  mix-show="#profile">
+  {% include "_nav.html" %}
+  <p>Hi {{ user.user_name }} {{ user.user_last_name }}</p>
+</main>
+
+{% include "_footer.html" %}

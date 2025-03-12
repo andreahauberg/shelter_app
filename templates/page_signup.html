@@ -1,49 +1,79 @@
 {% include "_header.html" %}
 
-<main id="signup" class="page" mix-url="/signup" mix-top="body" mix-title="{{ title | default('Company') }}"
-    mix-hide=".page" mix-show="#signup">
-    {% include "_nav.html" %}
+<main
+  id="signup"
+  class="page"
+  mix-url="/signup"
+  mix-top="body"
+  mix-title="{{ title | default('Signup') }}"
+  mix-hide=".page"
+  mix-show="#signup">
+  {% include "_nav.html" %}
 
-    <h1>Signup</h1>
+  <h1>Signup</h1>
+  <h2>{{ error_message }}</h2>
 
-    <form mix-post="/signup">
-        <div class="form-group">
-            <label for="user_name">
-                <span class="label">First Name</span>
-                <span class="hint">{{ x.USER_NAME_MIN }} to {{ x.USER_NAME_MAX }} characters</span>
-            </label>
-            <input id="user_name" name="user_name" type="text" mix-check="{{ x.USER_NAME_REGEX }}">
-        </div>
+  <form mix-post="/signup">
+    <div class="form-group">
+      <label for="user_name">
+        <span class="label">First Name</span>
+        <span class="hint">
+          {{ x.USER_NAME_MIN }} to {{ x.USER_NAME_MAX }} characters
+        </span>
+      </label>
+      <input
+        id="user_name"
+        name="user_name"
+        type="text"
+        mix-check="{{ x.USER_NAME_REGEX }}"
+        value="{{ old_values.get('user_name', '') }}" />
+    </div>
 
-        <div class="form-group">
-            <label for="user_last_name">
-                <span class="label">Last Name</span>
-                <span class="hint">{{ x.USER_LAST_NAME_MIN }} to {{ x.USER_LAST_NAME_MAX }} characters</span>
-            </label>
-            <input class="user_last_name" name="user_last_name" type="text" mix-check="{{ x.USER_LAST_NAME_REGEX }}">
-        </div>
+    <div class="form-group">
+      <label for="user_last_name">
+        <span class="label">Last Name</span>
+        <span class="hint">
+          {{ x.USER_LAST_NAME_MIN }} to {{ x.USER_LAST_NAME_MAX }} characters
+        </span>
+      </label>
+      <input
+        id="user_last_name"
+        name="user_last_name"
+        type="text"
+        mix-check="{{ x.USER_LAST_NAME_REGEX }}"
+        value="{{ old_values.get('user_last_name', '') }}" />
+    </div>
 
-        <div class="form-group">
-            <label for="user_email">
-                <span class="label">Email</span>
-                <span class="hint">Must include @ .</span>
-            </label>
-            <input class="user_email" name="user_email" type="email" mix-check="{{ x.USER_EMAIL_REGEX }}">
-        </div>
+    <div class="form-group">
+      <label for="user_email">
+        <span class="label">Email</span>
+        <span class="hint">Must include @ .</span>
+      </label>
+      <input
+        id="user_email"
+        name="user_email"
+        type="email"
+        mix-check="{{ x.USER_EMAIL_REGEX }}"
+        value="{{ old_values.get('user_email', '') }}" />
+    </div>
 
-        <div class="form-group">
-            <label for="user_password">
-                <span class="label">Password</span>
-                <span class="hint">{{ x.USER_PASSWORD_MIN }} to {{ x.USER_PASSWORD_MAX }} characters</span>
-            </label>
-            <input id="user_password" name="user_password" type="password" mix-check="{{ x.USER_PASSWORD_REGEX }}">
-        </div>
+    <div class="form-group">
+      <label for="user_password">
+        <span class="label">Password</span>
+        <span class="hint">
+          {{ x.USER_PASSWORD_MIN }} to {{ x.USER_PASSWORD_MAX }} characters
+        </span>
+      </label>
+      <input
+        id="user_password"
+        name="user_password"
+        type="password"
+        mix-check="{{ x.USER_PASSWORD_REGEX }}"
+        value="{{ old_values.get('user_password', '') }}" />
+    </div>
 
-        <button mix-await="Please wait..." mix-default="Signup">
-            Signup
-        </button>
-    </form>
-
+    <button mix-await="Please wait..." mix-default="Signup">Signup</button>
+  </form>
 </main>
 
 {% include "_footer.html" %}
