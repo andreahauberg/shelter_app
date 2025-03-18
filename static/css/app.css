@@ -41,6 +41,10 @@ body {
         background: green;
     }
 
+    .input_error {
+        background-color: rgba(255, 99, 71, 0.5);
+    }
+
     nav {
         padding: 0 var(--spacing-medium);
         background-color: var(--color-header-footer);
@@ -350,4 +354,11 @@ form {
     justify-content: center;
     min-height: 100vh;
     padding: var(--spacing-medium);
+}
+
+
+/* PROFILE PAGE */
+
+#profile{
+    margin-top: 5rem;
 }

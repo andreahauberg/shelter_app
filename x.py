@@ -81,6 +81,51 @@ def validate_page_number(page_number):
     if not re.match(PAGE_NUMBER_REGEX, page_number): raise Exception(error)
     return int(page_number)
 
+##############################
+ITEM_NAME_MIN = 2
+ITEM_NAME_MAX = 50
+ITEM_NAME_REGEX = f"^.{{{ITEM_NAME_MIN},{ITEM_NAME_MAX}}}$"
+def validate_item_name():
+    error = f"Shelter name must be {ITEM_NAME_MIN} to {ITEM_NAME_MAX} characters"
+    item_name = request.form.get("item_name", "").strip()
+    if not re.match(ITEM_NAME_REGEX, item_name): raise Exception(error)
+    return item_name
+
+##############################
+ITEM_ADDRESS_MIN = 5
+ITEM_ADDRESS_MAX = 100
+ITEM_ADDRESS_REGEX = f"^.{{{ITEM_ADDRESS_MIN},{ITEM_ADDRESS_MAX}}}$"
+def validate_item_address():
+    error = f"Address must be {ITEM_ADDRESS_MIN} to {ITEM_ADDRESS_MAX} characters"
+    item_address = request.form.get("item_address", "").strip()
+    if not re.match(ITEM_ADDRESS_REGEX, item_address): raise Exception(error)
+    return item_address
+
+##############################
+LAT_LON_REGEX = "^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$"
+def validate_item_lat():
+    error = "Invalid latitude format"
+    item_lat = request.form.get("item_lat", "").strip()
+    if not re.match(LAT_LON_REGEX, item_lat): raise Exception(error)
+    return float(item_lat)
+
+def validate_item_lon():
+    error = "Invalid longitude format"
+    item_lon = request.form.get("item_lon", "").strip()
+    if not re.match(LAT_LON_REGEX, item_lon): raise Exception(error)
+    return float(item_lon)
+
+##############################
+IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp")
+def validate_item_image():
+    error = "Invalid image format"
+    item_image = request.files.get("item_image")
+    if not item_image or item_image.filename == "":  # Sikrer, at filen faktisk eksisterer
+        raise Exception("No image uploaded")
+    if not item_image.filename.lower().endswith(IMAGE_EXTENSIONS):
+        raise Exception(error)
+    return item_image
+
 
 
 

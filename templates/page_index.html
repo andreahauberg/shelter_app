@@ -1,11 +1,11 @@
 {% include "_header.html" %}
-{% include "_nav.html" %}
 
 <main id="index" class="page"
 mix-url="/"
 mix-top="body"
 mix-hide=".page" mix-show="#index"
 mix-title="{{ title | default('Company') }}"
+mix-on:yes="initMap()"
 >
     {% include "_map.html" %}
     <section id="wrapper">

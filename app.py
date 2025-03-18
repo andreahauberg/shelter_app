@@ -1,8 +1,10 @@
 from flask import Flask, session, render_template, request, redirect, url_for
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import time
 import x
+import os
 import uuid
 from icecream import ic
 
@@ -59,14 +61,17 @@ def show_index():
 ##############################
 @app.get("/profile")
 def show_profile():
+    active_profile ="active"
+    error_message = request.args.get("error_message", "")
     try:
         is_session = False
         if session["user"]: is_session = True
-        return render_template("page_profile.html", title="Profile", user=session["user"], is_session = is_session )
+        return render_template("page_profile.html", title="Profile", user=session["user"], x=x, is_session=is_session, active_profile=active_profile, 
+                           error_message=error_message,
+                           old_values={})
     except Exception as ex:
+        ic(ex)
         return redirect(url_for("show_login"))
-    finally:
-        pass
 
 
 ##############################
@@ -229,15 +234,17 @@ def login():
         ic(ex)
         if "db" in locals(): db.rollback()
         old_values = request.form.to_dict()
+
         if "Invalid email" in str(ex):
             old_values.pop("user_email", None)
             return render_template("page_login.html",
-                message="Invalid email")
+                message="Invalid email", old_values=old_values)
+        
         if "password" in str(ex):
             old_values.pop("user_password", None)
             return render_template("page_login.html",
-                message="Invalid password")
-        return redirect(url_for("login", message=ex.args[0]))
+                message="Invalid password", old_values=old_values)
+        return redirect(url_for("show_login", message=ex.args[0]))
     finally:
         if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()
@@ -296,8 +303,67 @@ def get_items_by_page(page_number):
 
 
 
+#################################
 
+app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 
+@app.post("/add-item")
+def add_item():
+    try:
+        item_pk = str(uuid.uuid4())
+        item_name = x.validate_item_name()
+        item_address = x.validate_item_address()
+        item_lat = x.validate_item_lat()
+        item_lon = x.validate_item_lon()
+        item_image = x.validate_item_image()
+        
+        image_filename = None
+        if item_image:
+            image_filename = secure_filename(item_image.filename)
+            upload_dir = os.path.join("static", "uploads")
+            os.makedirs(upload_dir, exist_ok=True)
+            item_image.save(os.path.join(upload_dir, image_filename))
+        
+        db, cursor = x.db()
+        q = """INSERT INTO items
+               (item_pk, item_name, item_address, item_lat, item_lon, item_image)
+               VALUES (%s, %s, %s, %s, %s, %s)"""
+        cursor.execute(q, (
+            item_pk, 
+            item_name, 
+            item_address, 
+            item_lat, 
+            item_lon, 
+            image_filename
+            ))
+        if cursor.rowcount != 1:
+            raise Exception("Could not insert item")
 
+        db.commit()
 
-
+        return redirect(url_for("show_index"))
+    except Exception as ex:
+        ic(ex)
+        if "db" in locals(): db.rollback()
+        old_values = request.form.to_dict()
+        
+        if "Shelter name" in str(ex):
+            old_values.pop("item_name", None)
+            return render_template("add-item.html", error_message="input_error")
+        
+        if "Address" in str(ex):
+            old_values.pop("item_address", None)
+            return render_template("add-item.html", error_message="input_error")
+        
+        if "latitude" in str(ex):
+            old_values.pop("item_lat", None)
+            return render_template("add-item.html", error_message="input_error")
+        
+        if "latitude" in str(ex):
+            old_values.pop("item_longitude", None)
+            return render_template("add-item.html", error_message="input_error")
+        
+        return redirect(url_for("show_profile", error_message=str(ex)))
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
